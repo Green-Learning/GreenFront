@@ -1,11 +1,13 @@
 <template>
     <div>
       <navbar-component></navbar-component>
-  
+
       <!-- Conteúdo do seu componente de cadastro de aluno -->
       <div class="container mt-4">
+        <h1 class="mb-4">Seja bem vindo!</h1>
+
         <!-- Gráficos -->
-        <div class="row">
+        <div class="row mt-4">
           <div class="col-md-6">
             <canvas ref="graficoAlunos"></canvas>
           </div>

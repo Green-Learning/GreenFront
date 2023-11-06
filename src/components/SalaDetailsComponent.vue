@@ -1,4 +1,6 @@
 <template>
+    <h1 class="mb-3" v-if="this.form === undefined">Nova sala</h1>
+    <h1 class="mb-3" v-if="this.form === 'editar'">Editar sala</h1>
     <form @submit.prevent="submitForm">
 
         <div class="mb-3">
@@ -16,7 +18,7 @@
 
             <div class="col d-flex align-items-center justify-content-center">
                 <router-link class="col col-md-1" to="/salas">
-                    <button type="submit" class="btn btn-success">Voltar</button>
+                    <button type="submit" class="btn btn-primary">Voltar</button>
                 </router-link>
                 <button type="submit" :disabled="buttonDisabled" v-if="this.form === undefined" class="btn btn-success mt-2 mb-2" @click="submitForm()"> Cadastrar</button>
                 <button type="submit"  :disabled="buttonDisabled" v-if="this.form === 'editar'" class="btn btn-warning mt-2 mb-2" @click="onClickEditar()"> Editar</button>

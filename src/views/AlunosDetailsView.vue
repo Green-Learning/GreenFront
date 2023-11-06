@@ -3,8 +3,6 @@
 
     <div class="container mt-4">
 
-        <h1 class="mb-3">Novo aluno</h1>
-
         <AlunosDetailsComponent></AlunosDetailsComponent>
 
     </div>

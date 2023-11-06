@@ -3,8 +3,6 @@
 
     <div class="container mt-4">
 
-        <h1 class="mb-3">Nova Sala</h1>
-
         <SalaDetailsComponent></SalaDetailsComponent>
 
     </div>

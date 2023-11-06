@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg" style="background-color: #c48cbd !important;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="../assets/logo.png" alt="Logo" height="30">
@@ -9,18 +9,18 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto text-light">
                     <li class="nav-item">
-                        <router-link to="/salas" class="nav-link">Salas</router-link>
+                        <router-link to="/salas" class="nav-link text-light fw-semibold">Salas</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/alunos" class="nav-link">Alunos</router-link>
+                        <router-link to="/alunos" class="nav-link text-light fw-semibold">Alunos</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/Dashboard" class="nav-link">Jogos</router-link>
+                        <router-link to="/Dashboard" class="nav-link text-light fw-semibold">Jogos</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" @click="sair">Sair</a>
+                        <router-link to="/" class="nav-link text-light fw-semibold">Sair</router-link>
                     </li>
                 </ul>
             </div>
@@ -34,14 +34,11 @@ import { useRouter } from 'vue-router';
 
 interface NavBarComponent {
     $router: ReturnType<typeof useRouter>;
-    sair(): void;
 }
 
 export default defineComponent({
     methods: {
-        sair(this: NavBarComponent) {
-            this.$router.push('/login');
-        }
+        
     }
 });
 </script>
