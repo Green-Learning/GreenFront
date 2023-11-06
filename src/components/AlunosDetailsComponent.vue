@@ -12,7 +12,7 @@
 
         <div class="mb-3">
                 <label for="recipient-name" class="m-auto col-form-label">Sala:</label>
-                <select type="text" class="row ms-1" v-model="aluno.sala">
+                <select type="text" class="row ms-1 form-control " v-model="aluno.sala">
                     <option v-for="item in sala"
                     :value="item">{{ item.nome }}</option>
                 </select>
@@ -22,9 +22,9 @@
                 <router-link class="col col-md-1" to="/alunos">
                     <button type="submit" class="btn btn-success">Voltar</button>
                 </router-link>
-                <button type="submit" v-if="this.form === undefined" class="btn btn-success mt-2 mb-2" @click="submitForm()"> Cadastrar</button>
-                <button type="submit" v-if="this.form === 'editar'" class="btn btn-warning mt-2 mb-2" @click="onClickEditar()"> Editar</button>
-                <button type="submit" v-if="this.form === 'excluir'" class="btn btn-danger mt-2 mb-2" @click="onClickExcluir()"> Excluir</button>
+                <button type="submit" :disabled="buttonDisabled" v-if="this.form === undefined" class="btn btn-success mt-2 mb-2" @click="submitForm()"> Cadastrar</button>
+                <button type="submit" :disabled="buttonDisabled" v-if="this.form === 'editar'" class="btn btn-warning mt-2 mb-2" @click="onClickEditar()"> Editar</button>
+                <button type="submit" :disabled="buttonDisabled" v-if="this.form === 'excluir'" class="btn btn-danger mt-2 mb-2" @click="onClickExcluir()"> Excluir</button>
             </div>
     </form>
 </template>
@@ -47,6 +47,8 @@ export default defineComponent({
         return {
             aluno: new Aluno(),
             sala: new Array<Sala>(),
+            buttonDisabled : false
+
         };
     },
     components:{
@@ -79,6 +81,7 @@ export default defineComponent({
             })
         },
         submitForm() {
+            this.buttonDisabled = true;
             alunoClient.cadastrar(this.aluno).then(sucess => {
                 this.$router.push({ name: 'Alunos' });
             }).catch(error => {
@@ -86,16 +89,24 @@ export default defineComponent({
             })
         },
         onClickEditar(){
+            this.buttonDisabled = true;
             alunoClient.editar(this.aluno.id, this.aluno).then(sucess => {
+                this.buttonDisabled = false;
                 this.aluno = new Aluno()
+                this.$router.push({ name: 'Alunos' });
+
             })
             .catch(error =>{
                 console.log(error)
             })
         },
         onClickExcluir(){
+            this.buttonDisabled = true;
             alunoClient.deletar(this.aluno.id).then(sucess =>{
+                this.buttonDisabled = false;
                 this.aluno = new Aluno();
+                this.$router.push({ name: 'Alunos' });
+
             })
             .catch(error =>{
                 console.log(error);

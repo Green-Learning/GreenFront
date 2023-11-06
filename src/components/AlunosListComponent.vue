@@ -3,30 +3,30 @@
     <table class="table table-striped table-dark">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Idade</th>
-                <th scope="col">Sala</th>
-                <th scope="col">Ações</th>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Nome</th>
+                <th scope="col" class="text-center">Idade</th>
+                <th scope="col" class="text-center">Sala</th>
+                <th scope="col" class="text-center">Ações</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="item in alunos" :key="item.id">
-                <th> {{ item.id }} </th>
-                <th> {{ item.nome }} </th>
-                <th> {{ item.idade }} </th>
-                <th> {{ item.sala.nome }} </th>
-                <th>
+                <td class="text-center"> {{ item.id }} </td>
+                <td class="text-center"> {{ item.nome }} </td>
+                <td class="text-center"> {{ item.idade }} </td>
+                <td class="text-center"> {{ item.sala.nome }} </td>
+                <td class="text-center">
                     <div>
-                        <RouterLink type="button"
+                        <RouterLink type="button" class="btn btn-warning me-2"
                             :to="{ name: 'alunos-cadastrar-editar', query: { id: item.id, form: 'editar' } }">Editar
                         </RouterLink>
-                        <RouterLink type="button"
+                        <RouterLink type="button" class="btn btn-danger"
                             :to="{ name: 'alunos-cadastrar-excluir', query: { id: item.id, form: 'excluir' } }">Excluir
                         </RouterLink>
                     </div>
                     
-                </th>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -57,6 +57,7 @@ export default defineComponent({
         findAll() {
             alunoClient.listarTodos().then(sucess => {
                 this.alunos = sucess
+                console.log(sucess);
             })
             .catch(error => {
                 console.log(error)
