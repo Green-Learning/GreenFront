@@ -1,28 +1,25 @@
 <template>
-
     <table class="table table-striped table-dark">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
-                <th scope="col">Idade</th>
-                <th scope="col">Sala</th>
+                <th scope="col">Professor</th>
                 <th scope="col">Ações</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="item in alunos" :key="item.id">
+            <tr v-for="item in salas" :key="item.id">
                 <th> {{ item.id }} </th>
                 <th> {{ item.nome }} </th>
-                <th> {{ item.idade }} </th>
-                <th> {{ item.sala.nome }} </th>
+                <th> {{ item.professor.nome }} </th>
                 <th>
                     <div>
                         <RouterLink type="button"
-                            :to="{ name: 'alunos-cadastrar-editar', query: { id: item.id, form: 'editar' } }">Editar
+                            :to="{ name: 'salas-cadastrar-editar', query: { id: item.id, form: 'editar' } }">Editar
                         </RouterLink>
                         <RouterLink type="button"
-                            :to="{ name: 'alunos-cadastrar-excluir', query: { id: item.id, form: 'excluir' } }">Excluir
+                            :to="{ name: 'salas-cadastrar-excluir', query: { id: item.id, form: 'excluir' } }">Excluir
                         </RouterLink>
                     </div>
                     
@@ -35,10 +32,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
-import { Aluno } from '@/models/aluno';
-import alunoClient from '@/clients/aluno.client';
+import { Sala } from '../models/sala';
+import salaCliente from '@/clients/sala.cliente';
 
-interface AlunosListComponent {
+interface SalaListComponent {
     $router: ReturnType<typeof useRouter>;
     listAll(): void;
 }
@@ -46,7 +43,7 @@ interface AlunosListComponent {
 export default defineComponent({
     data() {
         return {
-            alunos: new Array<Aluno>()
+            salas: new Array<Sala>()
         };
     },
     mounted() {
@@ -55,8 +52,8 @@ export default defineComponent({
     methods: {
 
         findAll() {
-            alunoClient.listarTodos().then(sucess => {
-                this.alunos = sucess
+            salaCliente.listarTodos().then(sucess => {
+                this.salas = sucess
             })
             .catch(error => {
                 console.log(error)
