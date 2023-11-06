@@ -3,23 +3,19 @@
 
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" v-model="aluno.nome">
-        </div>
-        <div class="mb-3">
-            <label for="idade" class="form-label">Idade</label>
-            <input type="number" class="form-control" id="idade" name="idade" v-model="aluno.idade">
+            <input type="text" class="form-control" id="nome" name="nome" v-model="salas.nome">
         </div>
 
         <div class="mb-3">
-                <label for="recipient-name" class="m-auto col-form-label">Sala:</label>
-                <select type="text" class="row ms-1" v-model="aluno.sala">
-                    <option v-for="item in sala"
+                <label for="recipient-name" class="m-auto col-form-label">Professor:</label>
+                <select type="text" class="row ms-1" v-model="salas.professor">
+                    <option v-for="item in professor"
                     :value="item">{{ item.nome }}</option>
                 </select>
             </div>
 
             <div class="col d-flex align-items-center justify-content-center">
-                <router-link class="col col-md-1" to="/alunos">
+                <router-link class="col col-md-1" to="/salas">
                     <button type="submit" class="btn btn-success">Voltar</button>
                 </router-link>
                 <button type="submit" v-if="this.form === undefined" class="btn btn-success mt-2 mb-2" @click="submitForm()"> Cadastrar</button>
@@ -32,12 +28,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
-import { Aluno } from '@/models/aluno';
-import alunoClient from '@/clients/aluno.client';
+
 import { Sala } from '../models/sala';
 import  salaClient  from '../clients/sala.cliente';
+import { Professor } from '../models/professor';
+import professorClient from '@/clients/professor.client';
+import alunoClient from '@/clients/aluno.client';
 
-interface AlunosDetailsComponent {
+interface SalaDetailsComponent {
     $router: ReturnType<typeof useRouter>;
     listAll(): void;
 }
@@ -45,8 +43,8 @@ interface AlunosDetailsComponent {
 export default defineComponent({
     data() {
         return {
-            aluno: new Aluno(),
-            sala: new Array<Sala>(),
+            salas: new Sala(),
+            professor: new Array<Professor>(),
         };
     },
     components:{
@@ -58,7 +56,7 @@ export default defineComponent({
             this.findById(Number(this.id));
         }
 
-        this.findAllSala();
+        this.findAllProfessor();
     },
     computed:{
         id(){
@@ -70,32 +68,32 @@ export default defineComponent({
     },
     methods: {
 
-        findAllSala(){
-            salaClient.listarTodos().then(sucess =>{
-                this.sala = sucess;
+        findAllProfessor(){
+            professorClient.listarTodos().then(sucess =>{
+                this.professor = sucess;
             })
             .catch(error =>{
                 console.log(error)
             })
         },
         submitForm() {
-            alunoClient.cadastrar(this.aluno).then(sucess => {
-                this.$router.push({ name: 'Alunos' });
+            salaClient.cadastrar(this.salas).then(sucess => {
+                this.$router.push({ name: 'Salas' });
             }).catch(error => {
                 console.log(error)
             })
         },
         onClickEditar(){
-            alunoClient.editar(this.aluno.id, this.aluno).then(sucess => {
-                this.aluno = new Aluno()
+            salaClient.editar(this.salas.id, this.salas).then(sucess => {
+                this.salas = new Sala()
             })
             .catch(error =>{
                 console.log(error)
             })
         },
         onClickExcluir(){
-            alunoClient.deletar(this.aluno.id).then(sucess =>{
-                this.aluno = new Aluno();
+            salaClient.deletar(this.salas.id).then(sucess =>{
+                this.salas = new Sala();
             })
             .catch(error =>{
                 console.log(error);
@@ -103,8 +101,8 @@ export default defineComponent({
             })
         },
         findById(id: number){
-            alunoClient.buscaPorId(id).then(sucess =>{
-                this.aluno = sucess
+            salaClient.buscaPorId(id).then(sucess =>{
+                this.salas = sucess
             })
             .catch(error =>{
                 console.log(error)
