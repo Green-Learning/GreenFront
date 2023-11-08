@@ -17,7 +17,7 @@
                         <router-link to="/alunos" class="nav-link text-light fw-semibold">Alunos</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/Dashboard" class="nav-link text-light fw-semibold">Jogos</router-link>
+                        <router-link to="/jogos" class="nav-link text-light fw-semibold">Jogos</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link to="/" class="nav-link text-light fw-semibold">Sair</router-link>

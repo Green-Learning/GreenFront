@@ -9,6 +9,7 @@ import AlunosListComponent from '@/components/AlunosListComponent.vue'
 import SalaListComponent from '@/components/SalaListComponent.vue';
 import SalaDetailsComponent from '@/components/SalaDetailsComponent.vue'
 import SalasView from '@/views/SalasView.vue'
+import Game from '@/components/Game.vue'
 
 
 
@@ -81,6 +82,12 @@ const router = createRouter({
       path: '/teste',
       name: 'Teste',
       component: SalaDetailsComponent,
+      meta: { requiresAuth: true } // Esta meta propriedade indica que a rota requer autenticação
+    },
+    {
+      path: '/jogos',
+      name: 'Jogos',
+      component: Game,
       meta: { requiresAuth: true } // Esta meta propriedade indica que a rota requer autenticação
     },
     
